@@ -16,6 +16,8 @@ class CreatePoll extends Component
 
     public function addOption()
     {
-        $this->options[] = ''; 
+        if (trim($this->title) != '') {
+            $this->options[] = $this->title;
+        }
     }
 }
