@@ -3,6 +3,7 @@
 namespace App\Livewire;
 
 use Livewire\Component;
+use App\Models\Poll;
 
 class CreatePoll extends Component
 {
@@ -16,14 +17,29 @@ class CreatePoll extends Component
 
     public function addOption()
     {
-        if (trim($this->title) != '') {
-            $this->options[] = $this->title;
-        }
+    
+        $this->options[] = '';
+        
     }
 
     public function removeOption($index)
     {
         unset($this->options[$index]);
         $this->options = array_values($this->options);
+    }
+
+    public function createPoll()
+    {
+        $poll = Poll::create([
+            'title' => $this->title
+        ]);
+
+        foreach($this->options as $option){
+            $poll->options()->create([
+                'name' => $option
+            ]);
+        }
+
+        $this->reset('title', 'options');
     }
 }
