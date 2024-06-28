@@ -4,6 +4,9 @@
             Poll title
         </label>
         <input class="mb-4" type="text" wire:model.live="title">
+        @error('title')
+            <div class="text-red-500">{{ $message }}</div>
+        @enderror
         <button class="btn mb-4" wire:click.prevent="addOption" >Add Option</button>
         <div class="mb-4">
                 @foreach ($options as $index => $option)
@@ -14,6 +17,9 @@
                         Remove
                     </button>
                 </div>
+                @error("options.{$index}")
+                    <div class="text-red-500">{{ $message }}</div>
+                @enderror
             @endforeach
         </div>
         <button class="btn mb-4" type="submit">Create Poll</button>
